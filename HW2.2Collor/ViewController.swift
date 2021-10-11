@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        labelRed.text = "Red"
+        labelRed.text = "yellow"
         labelGreen.text = "Green"
         labelBlue.text = "Blue"
         
