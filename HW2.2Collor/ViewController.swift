@@ -9,10 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet var labelRed: UILabel!
-    @IBOutlet var labelGreen: UILabel!
-    @IBOutlet var labelBlue: UILabel!
-    
+
     @IBOutlet var labelRedOne: UILabel!
     @IBOutlet var labelGreenOne: UILabel!
     @IBOutlet var labelBlueOne: UILabel!
@@ -26,52 +23,50 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        labelRed.text = "yellow"
-        labelGreen.text = "Green"
-        labelBlue.text = "Blue"
-        
-        labelRedOne.numberOfLines = 2
-        
     
-        viewCollour.layer.cornerRadius = 10
+        viewCollour.layer.cornerRadius = 15
         
-        sliderRed.value = 0
-        sliderRed.minimumValue = 0
-        sliderRed.maximumValue = 1
-        sliderRed.tintColor = UIColor.red
-        labelRedOne.text = String(sliderRed.value)
+        sliderRed.minimumTrackTintColor = .red
+        sliderGreen.minimumTrackTintColor = .green
         
-        sliderGreen.value = 0
-        sliderGreen.minimumValue = 0
-        sliderGreen.maximumValue = 1
-        sliderGreen.tintColor = UIColor.green
-        labelGreenOne.text = String(sliderGreen.value)
+        setColor()
         
-        sliderBlue.value = 0
-        sliderBlue.minimumValue = 0
-        sliderBlue.maximumValue = 1
-        sliderBlue.tintColor = UIColor.blue
-        labelBlueOne.text = String(sliderBlue.value)
+        setValue(for: labelRedOne, labelGreenOne, labelBlueOne)
     }
     
-
-    @IBAction func controllerRed() {
-        labelRedOne.text = String(sliderRed.value)
-        viewCollour.backgroundColor = .red
+    @IBAction func oldSlaider(_ sender: UISlider) {
         
-    }
-    
-    @IBAction func controllerGreen() {
-        labelGreenOne.text = String(sliderGreen.value)
-        viewCollour.backgroundColor = .green
+        setColor()
         
-    }
-    @IBAction func controllerBlue() {
-        labelBlueOne.text = String(sliderBlue.value)
-        viewCollour.backgroundColor = .blue
+        switch sender.tag {
+        case 0: labelRedOne.text = string(from: sender)
+        case 1: labelGreenOne.text = string(from: sender)
+        case 2: labelBlueOne.text = string(from: sender)
+        default: break
+        }
     }
     
-    @IBAction func oldSlaider() {
+    private func setColor() {
+        viewCollour.backgroundColor = UIColor(red: CGFloat(sliderRed.value),
+                                              green: CGFloat(sliderGreen.value),
+                                              blue: CGFloat(sliderBlue.value),
+                                              alpha: 1)
     }
-    
+        private func setValue(for labels: UILabel...) {
+            labels.forEach { label in
+                switch label.tag {
+                case 0: labelRedOne.text = string(from: sliderRed)
+                case 1: labelGreenOne.text = string(from: sliderGreen)
+                case 2: labelBlueOne.text = string(from: sliderBlue)
+                default: break
+                }
+            }
+        }
+            private func string(from slider: UISlider) -> String {
+                String(format: "%.2f", slider.value)
 }
+
+}
+ 
+
+
